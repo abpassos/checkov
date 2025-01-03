@@ -24,3 +24,7 @@ jobs:
         uses: bridgecrewio/checkov-action@v12
         with:
           directory: .
+      
+      - name: Run zizmor
+        runs: |
+          zizmor .github/workflows/main.yml
