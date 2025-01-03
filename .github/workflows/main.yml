@@ -13,9 +13,10 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@master
       
-      - name: Install zizmor
+      - name: Install dependencies
         run: |
-          brew install zizmor
+          sudo pip3 install
+          pip install zizmor
 
       - name: Run Checkov action
         id: checkov
