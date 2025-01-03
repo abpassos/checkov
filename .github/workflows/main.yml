@@ -26,5 +26,4 @@ jobs:
           directory: .
       
       - name: Run zizmor
-        runs: |
-          zizmor .github/workflows/main.yml
+        run: zizmor .github/workflows/main.yml
