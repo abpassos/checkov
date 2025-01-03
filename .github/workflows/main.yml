@@ -3,7 +3,11 @@ on:
   push:
     branches: [ "main" ]
 
-permissions: read-all
+permissions:
+  # NOT OK: too broad; should be scoped at the job level
+  id-token: write
+  # NOT OK: too broad; should be scoped at the job level
+  contents: write
 
 jobs:
   checkov-job:
@@ -12,6 +16,7 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@master
+        
       
       - uses: actions/setup-python@v1
       - uses: BSFishy/pip-action@v1
