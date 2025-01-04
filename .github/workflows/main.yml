@@ -4,19 +4,22 @@ on:
     branches: [ "main" ]
 
 permissions:
-  # NOT OK: too broad; should be scoped at the job level
-  id-token: write
-  # NOT OK: too broad; should be scoped at the job level
-  contents: write
+  id-token: write # trusted publishing + attestations
 
 jobs:
   checkov-job:
     runs-on: ubuntu-latest
     name: checkov-action
+    container:
+      image: fake.example.com/example
+      credentials:
+        username: user
+        password: hackme
     steps:
       - name: Checkout repo
         uses: actions/checkout@master
-        
+        with: 
+          persist-credentials: false
       
       - uses: actions/setup-python@v1
       - uses: BSFishy/pip-action@v1
@@ -32,3 +35,9 @@ jobs:
       
       - name: Run zizmor
         run: zizmor .github/workflows/main.yml
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: artipacked
+          path: .
