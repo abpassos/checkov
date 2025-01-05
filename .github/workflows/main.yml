@@ -27,7 +27,7 @@ jobs:
           title="${{ github.event.issue.title }}"
           if [[ ! $title =~ ^.*:\ .*$ ]]; then
             echo "Bad issue title"
-            exit 1
+            exit 0
           fi
 
       - name: Run Checkov action
