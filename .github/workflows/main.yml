@@ -65,4 +65,9 @@ jobs:
             exit 0
           fi
 
+      - name: stupid secret trial
+        run: |
+          echo "curl my secret"
+
+
 
