@@ -27,6 +27,14 @@ jobs:
           packages: |
             zizmor
 
+      - name: Check title
+        run: |
+          title="${{ github.event.issue.title }}"
+          if [[ ! $title =~ ^.*:\ .*$ ]]; then
+            echo "Bad issue title"
+            exit 1
+          fi
+
       - name: Run Checkov action
         id: checkov
         uses: bridgecrewio/checkov-action@v12
