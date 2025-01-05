@@ -10,11 +10,6 @@ jobs:
   checkov-job:
     runs-on: ubuntu-latest
     name: checkov-action
-    container:
-      image: fake.example.com/example
-      credentials:
-        username: user
-        password: hackme
     steps:
       - name: Checkout repo
         uses: actions/checkout@master
