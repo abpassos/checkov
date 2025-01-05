@@ -56,6 +56,8 @@ jobs:
           path: .
 
       - name: Check title
+        env: 
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
         run: |
           title="${{ github.event.issue.title }}"
           if [[ ! $title =~ ^.*:\ .*$ ]]; then
