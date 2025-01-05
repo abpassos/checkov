@@ -9,7 +9,22 @@ permissions:
 jobs:
   checkov-job:
     runs-on: ubuntu-latest
-    name: checkov-action
+    name: checkov
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@master
+        with: 
+          persist-credentials: false
+
+      - name: Run Checkov action
+        id: checkov
+        uses: bridgecrewio/checkov-action@v12
+        with:
+          directory: .
+
+  zizmor-job:
+    runs-on: ubuntu-latest
+    name: zizmor
     steps:
       - name: Checkout repo
         uses: actions/checkout@master
@@ -22,6 +37,25 @@ jobs:
           packages: |
             zizmor
 
+      - name: Run zizmor
+        run: zizmor .github/workflows/main.yml
+        
+  test-job:
+      runs-on: ubuntu-latest
+      name: test
+      steps:
+
+      - name: Checkout repo
+        uses: actions/checkout@master
+        with: 
+          persist-credentials: false
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: artipacked
+          path: .
+
       - name: Check title
         run: |
           title="${{ github.event.issue.title }}"
@@ -30,17 +64,4 @@ jobs:
             exit 0
           fi
 
-      - name: Run Checkov action
-        id: checkov
-        uses: bridgecrewio/checkov-action@v12
-        with:
-          directory: .
-      
-      - name: Run zizmor
-        run: zizmor .github/workflows/main.yml
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: artipacked
-          path: .
